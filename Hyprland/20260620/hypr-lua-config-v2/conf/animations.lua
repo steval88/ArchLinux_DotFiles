@@ -1,14 +1,14 @@
--- ~/.config/hypr/animations.lua
+-- ~/.config/hypr/conf/animations.lua
 -- ============================================================================
--- Animation curves + timings.
--- Reference: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
--- This reproduces your existing animation set, with one upgrade: windows now
--- use a spring curve ("easy") for a slightly bouncier, more modern open/close.
+--  Animation curves + per-leaf timings.
+--  https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+--  Windows use a spring ("easy") for a bouncier open/close.
 -- ============================================================================
 
-hl.config({ animations = { enabled = true } })
+local opt = require("conf.options")
 
--- Bezier curves (your set) + one spring
+hl.config({ animations = { enabled = opt.animations_enabled } })
+
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1} } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1} } })
 hl.curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1} } })
