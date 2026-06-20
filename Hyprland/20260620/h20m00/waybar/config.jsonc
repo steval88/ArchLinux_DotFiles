@@ -1,0 +1,88 @@
+{
+  // ─── Bar geometry (slimmed down) ───────────────────────────────
+  "layer": "top",
+  "position": "top",
+  "height": 26,
+  "margin-top": 5,
+  "margin-left": 5,
+  "margin-right": 5,
+  "spacing": 4,
+
+  // ─── Module layout ─────────────────────────────────────────────
+  "modules-left":   ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right":  ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "battery", "tray", "custom/power"],
+
+  // ─── Left ──────────────────────────────────────────────────────
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "format": "{name}",
+    "on-click": "activate",
+    "sort-by-number": true,
+    // hyphenated key (the old persistent_workspaces underscore form is deprecated)
+    "persistent-workspaces": { "*": ["1","2","3","4","5","6","7","8","9","10"] }
+  },
+
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 45,
+    "separate-outputs": true,
+    "rewrite": { "": "  " }            // show a glyph instead of blank when no window
+  },
+
+  // ─── Center ────────────────────────────────────────────────────
+  "clock": {
+    "format": " {:%H:%M   %a %d %b}",
+    "format-alt": " {:%A, %d %B %Y}",  // click to toggle to the long date
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "format": { "today": "<span color='#a6e3a1'><b>{}</b></span>" }
+    }
+  },
+
+  // ─── Right ─────────────────────────────────────────────────────
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": { "activated": "", "deactivated": "" },
+    "tooltip-format-activated": "Idle inhibited — won't dim/lock/sleep",
+    "tooltip-format-deactivated": "Idle normal"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " muted",
+    "format-icons": { "headphone": "", "default": ["", "", ""] },
+    "scroll-step": 5,
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": " {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "󰤭 offline",
+    "tooltip-format": "{ifname} · {ipaddr}",
+    "on-click": "nm-connection-editor"
+  },
+
+  "cpu":    { "format": " {usage}%",     "interval": 2, "tooltip": false },
+  "memory": { "format": " {used:0.1f}G", "interval": 2, "tooltip": false },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "format-time": "{H}h {M}m",
+    "states": { "warning": 30, "critical": 15 }
+  },
+
+  // Needed so nm-applet / polkit / other tray icons have somewhere to live
+  "tray": { "icon-size": 14, "spacing": 6 },
+
+  "custom/power": {
+    "format": "",
+    "tooltip-format": "Power menu",
+    "on-click": "wlogout -p layer-shell"
+  }
+}
